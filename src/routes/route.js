@@ -34,24 +34,7 @@ let players =
        },
    ]
 
-router.post('/players', function (req, res) {
- 
-    //LOGIC WILL COME HERE
-    // if(players.name == req.body.name) {
-    //     console.log("Player already exist")
-    // }else {
-    //     players.push(req.body)
-    // }
-    let n = req.body.name
-    let a = players.find(p => p.name == n)
-    if(a.name != n) {
-        a.push(req.body)
-    } else {
-        console.log("Player already present")
-    }
-    //console.log(req.body)
-    res.send(  { data: a , status: true }  )
-})
+
 
 
 

@@ -1,28 +1,46 @@
 const mongoose = require('mongoose');
-const { stringify } = require('querystring');
+// const { stringify } = require('querystring');
+// const { float } = require('webidl-conversions');
 
 const bookSchema = new mongoose.Schema( {
-    bookName: {
-    type: String,
-    recquired: true
-    }, 
-    prices: {
-        
-        indianPrice: String,
-        europePrice: String,
-    },
-    year: {
+    name: String,
+    author_id: {
         type: Number,
-        default: 2021
-    }, 
-    tags: String,
-    authorName: String,     
-    totalPages: Number,
-    stockAvailable: Boolean,
+        require: true
+        
+    },
+    price: Number,
+    ratings: Number
+   
 }, { timestamps: true });
 
 
-module.exports = mongoose.model('assignmentBookDB', bookSchema) //users
+module.exports = mongoose.model('BooksDB', bookSchema) 
+
+
+
+
+
+     
+    // bookName: {
+    // type: String,
+    // recquired: true
+    // }, 
+    // prices: {
+        
+    //     indianPrice: String,
+    //     europePrice: String,
+    // },
+    // year: {
+    //     type: Number,
+    //     default: 2021
+    // }, 
+    // tags: String,
+    // authorName: String,     
+    // totalPages: Number,
+    // stockAvailable: Boolean,
+
+
 
 //Validation:
 //require:true

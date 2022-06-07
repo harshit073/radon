@@ -25,10 +25,10 @@ const getParticularBooks = async function(req, res) {
     res.send({msg: particularBooks})
 }
 
-// const getXINRBooks = async function(req, res) {
-//     let allINRBooks= await BookModel.find( $or{prices.indianPrice: })
-//     res.send({msg: allBooks})
-// }
+const getXINRBooks = async function(req, res) {
+    let allINRBooks= await BookModel.find({prices.indianPrice {$in: {"100INR", "200INR", "50INR"}}})
+    res.send({msg: allBooks})
+}
 
 module.exports.createBook= createBook
 module.exports.bookList= bookList

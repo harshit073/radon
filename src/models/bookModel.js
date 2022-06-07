@@ -16,7 +16,7 @@ const bookSchema = new mongoose.Schema( {
     tags: Array,
     authorName: String,     
     totalPages: Number,
-    isPublished: Boolean,
+    stockAvailable: Boolean,
 }, { timestamps: true });
 
 

@@ -26,11 +26,20 @@ const getParticularBooks = async function(req, res) {
 }
 
 const getXINRBooks = async function(req, res) {
-    let allINRBooks= await BookModel.find({prices.indianPrice: {$in: ["100INR", "200INR", "50INR"]}})
-    res.send({msg: allBooks})
+    let allINRBooks= await BookModel.find({$or:[{"prices.indianPrice": {$eq: "100INR"}},{"prices.indianPrice": {$eq: "200INR"}},{"prices.indianPrice": {$eq: "500INR"}}]})
+    res.send({msg: allINRBooks})
+}
+
+const getRandomBooks = async function(req, res) {
+    let randomBooks= Object.keys(BookModel)
+    let random = randomBooks[Math.floor(Math.random)*randomBooks.length]
+
+    res.send({msg: random})
 }
 
 module.exports.createBook= createBook
 module.exports.bookList= bookList
 module.exports.getBookInYear= getBookInYear
 module.exports.getParticularBooks= getParticularBooks
+module.exports.getXINRBooks= getXINRBooks
+module.exports.getRandomBooks= getRandomBooks

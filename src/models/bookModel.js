@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { stringify } = require('querystring');
 
 const bookSchema = new mongoose.Schema( {
     bookName: {
@@ -6,6 +7,7 @@ const bookSchema = new mongoose.Schema( {
     recquired: true
     }, 
     prices: {
+        
         indianPrice: String,
         europePrice: String,
     },

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-// const { stringify } = require('querystring');
-// const { float } = require('webidl-conversions');
+const { stringify } = require('querystring');
+const { float } = require('webidl-conversions');
 
 const bookSchema = new mongoose.Schema( {
     name: String,

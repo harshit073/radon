@@ -13,7 +13,7 @@ router.get("/getBookByCheetanBhagat", BookController.getBookByCheetanBhagat)
 
 router.get("/getAuthorPrice", BookController.getAuthorPrice)
 
-router.get("/booksCost", BookController.booksCost)
+router.get("/getAuthorName", BookController.getAuthorName)
 
 
 

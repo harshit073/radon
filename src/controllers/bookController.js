@@ -39,7 +39,7 @@ const getAuthorName= async function (req, res) {
        temp.push(author)
      
    }
-   const authorName=temp.flat
+   const authorName=temp
    res.send({msg:authorName})
 }
 

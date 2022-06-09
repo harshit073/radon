@@ -1,5 +1,5 @@
 const { default: mongoose } = require("mongoose")
-const { find } = require("../models/authorModel")
+const { find, updateMany } = require("../models/authorModel")
 const authorModel = require("../models/authorModel")
 const bookModel= require("../models/bookModel")
 const publisherModel= require("../models/publisherModel")
@@ -58,15 +58,22 @@ const getBooksWithAuthorDetails = async function (req, res) {
 }
 
 const putUpdateKey= async function (req, res) {
-    let publisherId = await publisherModel.find({name: "Penguin"}).select("_id")
-    let updateKey = await bookModel.updateMany({_id: publisherId._id}, {$set:{isHarsCover: true}})
+    let publisherId = await publisherModel.find({$or:[{name: "Penguin"}, {name: "HarperCollins"}]})
+
+    for (let i=0;i<publisherId.length;i++) {
+      let updateKey = await bookModel.updateMany({publisher_id: publisherId[i]._id}, {$set:{isHardCover: true}} )
     res.send({msg: updateKey})
+    }
+   
 }
 
 const bookByAuthorRating = async function(req, res) {
     let authorRating = await authorModel.find({rating: {$gt:3.5}})
-    let updatePrice = await bookModel.updateMany({_id: authorRating._id}, {$inc: {price: 10}})
-    res.send({msg: updatePrice})
+    for (let j=0;j<authorRating.length;j++) {
+    let updatePrice = await bookModel.updateMany({author_id: authorRating[j]._id}, {$inc: {price: 10}})
+    return res.send({msg: updatePrice})
+}
+
 }
 
 

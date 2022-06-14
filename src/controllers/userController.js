@@ -7,16 +7,16 @@ const createUser = async function (abcd, xyz) {
   //the second parameter is always the response
   let data = abcd.body;
   let savedData = await userModel.create(data);
-  console.log(abcd.newAtribute);
+  //console.log(abcd.newAtribute);
   xyz.send({ msg: savedData });
 };
 
 const loginUser = async function (req, res) {
-  let userName = req.body.emailId;
-  let password = req.body.password;
+let userName = req.body.emailId;
+let password = req.body.password;
 
-  let user = await userModel.findOne({ emailId: userName, password: password });
-  if (!user)
+let user = await userModel.findOne({ emailId: userName, password: password });
+if (!user)
     return res.send({
       status: false,
       msg: "username or the password is not corerct",
@@ -31,7 +31,7 @@ const loginUser = async function (req, res) {
   let token = jwt.sign(
     {
       userId: user._id.toString(),
-      batch: "thorium",
+      batch: "radon",
       organisation: "FunctionUp",
     },
     "functionup-radon"
@@ -41,13 +41,13 @@ const loginUser = async function (req, res) {
 };
 
 const getUserData = async function (req, res) {
-  let token = req.headers["x-Auth-token"];
-  if (!token) token = req.headers["x-auth-token"];
+    let token = req.headers["x-Auth-token"];
+    if (!token) token = req.headers["x-auth-token"];
 
-  //If no token is present in the request header return error
-  if (!token) return res.send({ status: false, msg: "token must be present" });
+//   //If no token is present in the request header return error
+//   if (!token) return res.send({ status: false, msg: "token must be present" });
 
-  console.log(token);
+//   console.log(token);
   
   // If a token is present then decode the token with verify function
   // verify takes two inputs:
@@ -62,11 +62,15 @@ const getUserData = async function (req, res) {
   let userDetails = await userModel.findById(userId);
   if (!userDetails)
     return res.send({ status: false, msg: "No such user exists" });
-
   res.send({ status: true, data: userDetails });
 };
 
 const updateUser = async function (req, res) {
+//     let token = req.headers["x-Auth-token"];
+//   if (!token) token = req.headers["x-auth-token"];
+
+//   //If no token is present in the request header return error
+//   if (!token) return res.send({ status: false, msg: "token must be present" });
 // Do the same steps here:
 // Check if the token is present
 // Check if the token present is a valid token
@@ -80,11 +84,27 @@ const updateUser = async function (req, res) {
   }
 
   let userData = req.body;
-  let updatedUser = await userModel.findOneAndUpdate({ _id: userId }, userData);
-  res.send({ status: updatedUser, data: updatedUser });
+  let updatedUser = await userModel.findOneAndUpdate({ _id: userId }, userData,{new: true});
+  res.send({ status: true, data: updatedUser });
 };
+
+
+const isDeleted = async function(req, res) {
+    //token validation
+    
+
+    let userID = req.params.userId
+    let user = await userModel.findById(userID);
+     //Return an error if no user with the given id exists in the db
+  if (!user) {
+    return res.send("No such user exists");
+  }
+    let userdeleted = await userModel.findOneAndUpdate({_id: userID},{isDeleted: true})
+    res.send({ status: true, data: userdeleted });
+}
 
 module.exports.createUser = createUser;
 module.exports.getUserData = getUserData;
 module.exports.updateUser = updateUser;
 module.exports.loginUser = loginUser;
+module.exports.isDeleted = isDeleted;

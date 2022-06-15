@@ -6,9 +6,13 @@ const createUser = async function (abcd, xyz) {
   //but the first parameter is always the request 
   //the second parameter is always the response
   let data = abcd.body;
+  data.anything = "everything"
+  console.log(data)
   let savedData = await userModel.create(data);
   //console.log(abcd.newAtribute);
-  xyz.send({ msg: savedData });
+  data.anything = "everything"
+  console.log(data)
+  xyz.send({ msg: data });
 };
 
 const loginUser = async function (req, res) {

@@ -16,6 +16,6 @@ router.get("/users/:userId",tokenValidate.tokenValidate, userController.getUserD
 
 router.put("/users/:userId",tokenValidate.tokenValidate, userController.updateUser)
 
-router.put("/usersdelete/:userId",tokenValidate.tokenValidate, userController.isDeleted )
+router.delete("/usersdelete/:userId",tokenValidate.tokenValidate, userController.isDeleted )
 
 module.exports = router;
